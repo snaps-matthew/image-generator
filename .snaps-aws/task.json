@@ -1,0 +1,40 @@
+{
+  "family": "prd-oround-image-generator",
+  "containerDefinitions": [
+    {
+      "name": "nginx",
+      "image": "012152056735.dkr.ecr.ap-northeast-2.amazonaws.com/prd-oround-image-generator-nginx:latest",
+      "portMappings": [
+        {
+          "containerPort": 80,
+          "hostPort": 80,
+          "protocol": "tcp"
+        }
+      ],
+      "dependsOn": [
+        {
+          "containerName": "nextjs",
+          "condition": "START"
+        }
+      ],
+      "essential": true
+    },
+    {
+      "name": "nextjs",
+      "image": "012152056735.dkr.ecr.ap-northeast-2.amazonaws.com/prd-oround-image-generator-nextjs:latest",
+      "portMappings": [
+        {
+          "containerPort": 3000
+        }
+      ],
+      "essential": true
+    }
+  ],
+  "executionRoleArn": "ecsTaskExecutionRole",
+  "cpu": "1024",
+  "memory": "2048",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": [
+    "FARGATE"
+  ]
+}
