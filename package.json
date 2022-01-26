@@ -4,8 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "start": "next start"
+    "start": "next build && next start -p 8080",
+    "build": "npm run clean && next build",
+    "clean": "rm -rf .next",
+    "deploy-dev": "npm install && npm run build && eb deploy Dojeon-env"
   },
   "dependencies": {
     "ag-psd": "^14.3.2",
