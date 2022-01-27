@@ -64,6 +64,7 @@ const getPathParams = (requestQuery: { [key: string]: string | string[] }): IReq
 // interface IRequest
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
+    console.log([['ENTRY POINT :::::']])
     const paramCodes = getPathParams(req.query);
     const artProductIndex = paramCodes.artProductIndex
     const target = paramCodes.target
@@ -71,6 +72,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const sizeCode = paramCodes.optionAndFileExt.sizeCode
 
     const productEditInfo = await getProductEditInfo(artProductIndex, sizeCode);
+    console.log({productEditInfo});
     const groupDelimiterName = productEditInfo.groupDelimiterName
     const scene = getSelectedScene(productEditInfo, optionInfo);
 
@@ -79,6 +81,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     if(scene){
       const thumbnailImage = await generateThumbnail(scene, getScale(groupDelimiterName));
+      console.log(thumbnailImage);
       const imageComposer = await generateImage({ thumbnailImage, target, productEditInfo, optionInfo, artProductIndex, scene })
       imageComposer.stream().pipe(res);
 
