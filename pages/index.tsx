@@ -4,6 +4,7 @@ const Home: NextPage = () => {
   return (
     <div>
       <img src={`${Config.ERROR_IMAGE_URL}`}/>
+      <p>codePipeline 테스트 중입니다.</p>
     </div>
   );
 };
